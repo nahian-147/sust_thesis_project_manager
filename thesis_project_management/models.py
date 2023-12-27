@@ -44,11 +44,18 @@ class Team(models.Model):
     id = models.BigAutoField(primary_key=True)
     name = models.CharField(max_length=100)
     year = models.IntegerField()
+    team_name = models.CharField(max_length=100)
+    course = models.ForeignKey(Course, related_name='team', on_delete=models.CASCADE)
+    project_thesis_title = models.CharField(max_length=300)
+    # students = models.ManyToOneRel(Student, related_name='team', on_delete=models.CASCADE)
 
 
 class Arrangement(models.Model):
     id = models.BigAutoField(primary_key=True)
     year = models.IntegerField()
+    course = models.ForeignKey(Course, related_name='arrangement', on_delete=models.CASCADE)
+    odd_semester = models.BooleanField()
+    course_teacher = models.ForeignKey(Teacher, related_name='arrangement', on_delete=models.CASCADE)
 
 
 class Participation(models.Model):
