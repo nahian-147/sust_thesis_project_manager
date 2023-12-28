@@ -47,7 +47,21 @@ class Team(models.Model):
     team_name = models.CharField(max_length=100)
     course = models.ForeignKey(Course, related_name='team', on_delete=models.CASCADE)
     project_thesis_title = models.CharField(max_length=300)
-    # students = models.ManyToOneRel(Student, related_name='team', on_delete=models.CASCADE)
+    students = models.JSONField(max_length=100)
+    assigned_teachers = models.JSONField(max_length=100)
+    assigned_supervisors = models.JSONField(max_length=100)
+    status = models.JSONField(max_length=50)
+    all_links = models.JSONField(max_length=2500)
+
+
+class TeamProgress(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    team = models.ForeignKey(Team, related_name='team_progress', on_delete=models.CASCADE)
+    last_updated = models.DateTimeField()
+    total_progress = models.FloatField()
+    meta = models.JSONField(max_length=2500)
+    milestones = models.JSONField(max_length=1500)
+    timeline = models.JSONField(max_length=500)
 
 
 class Arrangement(models.Model):
@@ -60,3 +74,8 @@ class Arrangement(models.Model):
 
 class Participation(models.Model):
     id = models.BigAutoField(primary_key=True)
+    arrangement = models.ForeignKey(Team, related_name='participation', on_delete=models.CASCADE)
+    team = models.ForeignKey(Team, related_name='participation', on_delete=models.CASCADE)
+    remarks = models.CharField(max_length=500)
+    result = models.CharField(max_length=20)
+    artifacts = models.JSONField(max_length=200)
