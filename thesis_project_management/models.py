@@ -53,7 +53,7 @@ class Supervisor(models.Model):
 
 
 class Student(models.Model):
-    registration = models.BigAutoField(primary_key=True)
+    registration = models.BigIntegerField(primary_key=True)
     name = models.CharField(max_length=100)
     department = models.ForeignKey(Department, related_name='student', on_delete=models.CASCADE)
 
