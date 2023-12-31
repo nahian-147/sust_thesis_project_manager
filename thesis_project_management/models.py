@@ -44,7 +44,6 @@ class Team(models.Model):
     id = models.BigAutoField(primary_key=True)
     name = models.CharField(max_length=100)
     year = models.IntegerField()
-    team_name = models.CharField(max_length=100)
     course = models.ForeignKey(Course, related_name='team', on_delete=models.CASCADE)
     project_thesis_title = models.CharField(max_length=300)
     students = models.JSONField(max_length=100)
@@ -74,7 +73,7 @@ class Arrangement(models.Model):
 
 class Participation(models.Model):
     id = models.BigAutoField(primary_key=True)
-    arrangement = models.ForeignKey(Team, related_name='participation', on_delete=models.CASCADE)
+    arrangement = models.ForeignKey(Arrangement, related_name='participation', on_delete=models.CASCADE)
     team = models.ForeignKey(Team, related_name='participation', on_delete=models.CASCADE)
     remarks = models.CharField(max_length=500)
     result = models.CharField(max_length=20)

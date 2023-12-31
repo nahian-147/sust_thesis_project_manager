@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "thesis_project_management"
+    "thesis_project_management",
+    "rest_framework"
 ]
 
 MIDDLEWARE = [
@@ -142,7 +143,7 @@ LOGGING = {
     'handlers': {
         'file': {
             'class': 'logging.FileHandler',
-            'filename': BASE_DIR / f'logs/arbor_venture_{datetime.now().date().isoformat()}.log',
+            'filename': BASE_DIR / f'logs/sust_thesis_project_manager_{datetime.now().date().isoformat()}.log',
             'formatter': 'verbose'
         },
         'console': {
