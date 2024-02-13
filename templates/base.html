@@ -1,0 +1,260 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <meta charset="UTF-8">
+
+  <head>
+
+    <title>
+      {{ title }}
+    </title>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content>
+    <meta name="keywords" content>
+    <meta name="author" content>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
+      crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/Treant.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/phyloGeneticTree.css' %}" />
+
+    <link
+      rel="stySlesheet"
+      href="{% static 'css/perfect-scrollbar.css' %}" />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+      crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="{% static 'css/sequence.css' %}">
+    <link rel="stylesheet" href="{% static 'css/arrange.css' %}">
+    <link href="{% static 'css/sidebars.css' %}" rel="stylesheet">
+    <link rel="canonical"
+      href="https://getbootstrap.com/docs/5.2/examples/footers/">
+    <link rel="canonical"
+      href="https://getbootstrap.com/docs/5.2/examples/sidebars/">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Courier+Prime&family=IBM+Plex+Sans&display=swap"
+      rel="stylesheet">
+
+    <style>
+
+      body {
+        font-family: 'IBM Plex Sans', sans-serif;
+      }
+
+
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+
+      .b-example-divider {
+        height: 3rem;
+        background-color: rgba(0, 0, 0, .1);
+        border: solid rgba(0, 0, 0, .15);
+        border-width: 1px 0;
+        box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+      }
+
+      .b-example-vr {
+        flex-shrink: 0;
+        width: 1.5rem;
+        height: 100vh;
+      }
+
+      .bi {
+        vertical-align: -.125em;
+        fill: currentColor;
+      }
+
+      .nav-scroller {
+        position: relative;
+        z-index: 2;
+        height: 2.75rem;
+        overflow-y: hidden;
+      }
+
+      .nav-scroller .nav {
+        display: flex;
+        flex-wrap: nowrap;
+        padding-bottom: 1rem;
+        margin-top: -1px;
+        overflow-x: auto;
+        text-align: center;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+      }
+    </style>
+
+  </head>
+
+  <body>
+
+    <div>
+      <nav class="navbar navbar-expand-sm bg-light">
+        <div class="container-fluid">
+          <img src="/static/images/logo.svg" width="80px" />
+          <a class="navbar-brand" href="{% url 'home' %}"><b>BIOINFORMATICS TOOLKIT</b></a>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/home">Home</a>
+              </li>
+              <li class="nav-item">
+                {% if user.is_authenticated %}
+                <a class="nav-link active" aria-current="page" href="{% url 'profile' %}">{{ user }}</a>
+                {% endif %}
+              </li>
+              <li class="nav-item">
+                {% if user.is_authenticated %}
+                <a class="nav-link" aria-current="page"
+                  href="{% url 'logout' %}">Logout</a>
+                {% else %}
+                <a class="nav-link active" aria-current="page"
+                  href="{% url 'login' %}">Login</a>
+                {% endif %}
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+      <table style="width:100%;">
+        <tr>
+          <td style="vertical-align: top;">
+            <div>
+              {% if user.is_authenticated %}
+              <div class="flex-shrink-0 p-3 bg-white" style="width: 280px;">
+                <ul class="list-unstyled ps-0">
+                  <li class="mb-1">
+                    <button
+                      class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
+                      data-bs-toggle="collapse" data-bs-target="#home-collapse"
+                      aria-expanded="false">
+                      Genome Manipulation
+                    </button>
+                    <div class="collapse" id="home-collapse">
+                      <ul
+                        class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                        <li><a href="/genome_manipulation/transcription/"
+                            class="link-dark d-inline-flex text-decoration-none rounded">Transcription</a></li>
+                        <li><a href="/genome_manipulation/reverse_complement"
+                            class="link-dark d-inline-flex text-decoration-none rounded">Reverse
+                            Complement</a></li>
+                        <li><a href="/genome_manipulation/protein_synthesis"
+                            class="link-dark d-inline-flex text-decoration-none rounded">Protein
+                            Synthesis</a></li>
+                      </ul>
+                    </div>
+                  </li>
+                  <li class="mb-1">
+                    <button
+                      class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
+                      data-bs-toggle="collapse"
+                      data-bs-target="#dashboard-collapse" aria-expanded="false">
+                      Gene Prediction
+                    </button>
+                    <div class="collapse" id="dashboard-collapse">
+                      <ul
+                        class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                        <li><a href="/gene_prediction/"
+                            class="link-dark d-inline-flex text-decoration-none rounded">Gene
+                            Prediction</a>
+                        </li>
+                      </ul>
+                    </div>
+                  </li>
+                  <!-- <li class="mb-1">
+                    <button
+                      class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
+                      data-bs-toggle="collapse"
+                      data-bs-target="#orders-collapse" aria-expanded="false">
+                      Gene Clustering
+                    </button>
+                    <div class="collapse" id="orders-collapse">
+                    </div>
+                  </li> -->
+                  <li class="mb-1">
+                    <button
+                      class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
+                      data-bs-toggle="collapse"
+                      data-bs-target="#account-collapse" aria-expanded="false">
+                      Phylogenetic Tree
+                    </button>
+                    <div class="collapse" id="account-collapse">
+                      <ul
+                        class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                        <li><a href="/phylogenetic_tree/showPhylogeneticTree"
+                            class="link-dark d-inline-flex text-decoration-none rounded">PhylogeneticTree</a>
+                        </li>
+                      </ul>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              {% endif %}
+            </div>
+          </td>
+
+          <td>
+            <div class="container">
+              {% if messages %}
+              {% for message in messages %}
+              <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+              </div>
+              {% endfor %}
+              {% endif %}
+              {% block content %}{% endblock %}
+            </div>
+          </td>
+
+          <tr>
+            <td colspan="2">
+              <div class="container">
+                <footer class="py-3 my-4">
+                  <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+                    <li class="nav-item"><a href="http://www.mec.ac.bd/"
+                        class="nav-link px-2 text-muted">&copy;Mymensingh
+                        Engineering College</a></li>
+                    <li class="nav-item"><a href="http://www.mec.ac.bd/"
+                        class="nav-link px-2 text-muted"><img
+                          src="/static/images/mec_logo.svg" width="20px" /></a></li>
+                    <li class="nav-item"><a href="#"
+                        class="nav-link px-2 text-muted">2022</a></li>
+                  </ul>
+                </footer>
+              </div>
+            </td>
+          </tr>
+        </tr>
+      </table>
+
+    </div>
+
+    <script src="{% static 'scripts/sidebars.js' %}"></script>
+
+  </body>
+
+</html>

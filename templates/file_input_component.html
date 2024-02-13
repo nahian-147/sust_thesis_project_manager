@@ -1,0 +1,23 @@
+{% load crispy_forms_tags %}
+{% load static  %} 
+{% block content %}
+
+<section id="genePrediction">
+   <div class="container">
+     <div class="plate">
+        <form id="addform" class="form" method="POST" enctype="multipart/form-data" action="/gene_prediction/genes/">
+           {% csrf_token %}
+           <fieldset>
+           <legend>Enter Your Sequence Here</legend>
+              {{ form|crispy }}
+           </fieldset>
+           <div>
+              <button class="btn btn-primary" type="submit">SUBMIT</button>
+           </div>
+        </form>
+     </div>
+  </div>
+</section>
+
+
+{% endblock content%}

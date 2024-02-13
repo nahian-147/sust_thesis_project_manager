@@ -1,0 +1,33 @@
+{% load crispy_forms_tags %}
+{% load static  %} 
+{% block content %}
+
+<section id="reverseComplement">
+    <div class="container">
+		
+      <div class="plate">
+         <form id="addform" class="form" method="POST" enctype="multipart/form-data" action="/genome_manipulation/reverse_complement/">
+            {% csrf_token %}
+            <fieldset>
+            <legend>Enter Your Sequence Here</legend>
+               {{ form|crispy }}
+            </fieldset>
+            <div>
+               <button class="btn btn-primary" type="submit">SUBMIT</button>
+            </div>
+         </form>
+      </div>
+
+         {% if reversed_sequence %}
+         <div class="plate">
+            RESULT
+            <div class="sequence">
+               <p>{{ reversed_sequence }}</p>
+            </div>
+         </div>
+         {% endif %}
+	</div>
+</section>
+
+
+{% endblock content%}

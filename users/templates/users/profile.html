@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<!-- <div class="content-section">
+    <p><h1>History</h1></p>
+    <div class="border-top pt-3">
+        <ol>
+            {% for history in work_history %}
+            <li>
+                <i>{{ history.time }}</i>
+                <br>
+                Operation : <b>{{ history.action }}</b>
+                <br>
+                Sequence : {{ history.sequence }}
+                <br>
+            </li>
+            <br>
+            {% endfor %}
+        </ol>
+    </div>
+</div> -->
+
+<section id="profile">
+    <div class="content-section">
+		<div class="row">
+
+			<div class="col-md-12 col-sm-12">
+				<b>History:</b>
+                <br>
+                <br>
+				<link rel="stylesheet" type="text/css" href="{% static  'css/jquery.dataTables.min.css' %}">
+				<table id="all_history_table" class="display" style="width:100%">
+				<thead>
+					<tr>
+						<th scope="col">Time</th>
+						<th scope="col">Operation</th>
+						<th scope="col">Sequence</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for history in work_history %}
+					<tr>
+						<td>{{ history.time }}</td>
+						<td><b>{{ history.action }}</b></td>
+						<td class="sequence">{{ history.sequence }}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+				</table>
+			</div>
+		</div>
+		</div>
+</section>
+
+<script src="{% static 'scripts/jquery-3.5.1.js' %}"></script>
+<script src="{% static 'scripts/jquery.dataTables.min.js' %}"></script>
+<script>
+    $(document).ready(function () {
+        $('#all_history_table').DataTable();
+    });
+</script>
+
+{% endblock content%}
