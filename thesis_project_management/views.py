@@ -1,4 +1,5 @@
 from django.shortcuts import render
 
-def foo():
-    pass
+
+def home(request):
+    return render(request, 'thesis_project_management/home.html', {'title': 'Home'})

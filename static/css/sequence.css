@@ -1,0 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Courier+Prime&family=IBM+Plex+Sans&display=swap');
+
+.sequence{
+    font-family: 'Courier Prime', monospace;
+    border : 5px;
+    padding : 5px;
+    width : 90%;
+  }

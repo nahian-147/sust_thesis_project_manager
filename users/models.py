@@ -30,36 +30,39 @@ class Course(models.Model):
 
 class Teacher(AbstractBaseUser):
     id = models.BigAutoField(primary_key=True)
-    name = models.CharField(max_length=100)
+    username = models.CharField(max_length=100)
     email = models.CharField(max_length=100)
     department = models.ForeignKey(Department, on_delete=models.CASCADE)
     expertise = models.CharField(max_length=100)
     publications = models.JSONField(max_length=1500)
+    USERNAME_FIELD = 'email'
 
     class Meta:
-        unique_together = ('name', 'department')
+        unique_together = ('username', 'department')
 
     def __str__(self):
-        return f'{self.name} dept. {self.department}'
+        return f'{self.username} dept. {self.department}'
 
 
 class Supervisor(AbstractBaseUser):
     id = models.BigAutoField(primary_key=True)
-    name = models.CharField(max_length=100)
+    username = models.CharField(max_length=100)
     email = models.CharField(max_length=100)
     department = models.ForeignKey(Department, on_delete=models.CASCADE, null=True)
     expertise = models.CharField(max_length=100)
     publications = models.JSONField(max_length=1500)
+    USERNAME_FIELD = 'email'
 
     def __str__(self):
-        return f'{self.name} dept. {self.department}'
+        return f'{self.username} dept. {self.department}'
 
 
 class Student(AbstractBaseUser):
     registration = models.BigIntegerField(primary_key=True)
-    name = models.CharField(max_length=100)
+    username = models.CharField(max_length=100)
     email = models.CharField(max_length=100)
     department = models.ForeignKey(Department, on_delete=models.CASCADE)
+    USERNAME_FIELD = 'email'
 
     def __str__(self):
-        return f'name: {self.name} dept: {self.registration} reg: {self.registration}'
+        return f'name: {self.username} dept: {self.registration} reg: {self.registration}'

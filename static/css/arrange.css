@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Courier+Prime&family=IBM+Plex+Sans&display=swap');
+
+.plate{
+    font-family: 'Courier Prime', monospace;
+    border: 15px;
+    padding: 10px;
+    width: 100%;
+    margin: auto;
+    height: auto;
+    padding: 10px;
+  }
+
+  .plateScroll{
+    overflow: hidden;
+    overflow-y: scroll;
+    height: auto;
+  }
