@@ -1,7 +1,13 @@
-from django.shortcuts import render, redirect
-from django.contrib.auth.forms import UserCreationForm
+import logging
+
 from django.contrib import messages
-from datetime import datetime
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
+from django.shortcuts import render, redirect
+
+from .models import Student, Supervisor, Teacher
+
+logger = logging.getLogger('django')
 
 
 def register(request):
@@ -21,5 +27,19 @@ def register(request):
 
 
 def user_profile(request):
-
-    return render(request, 'users/profile.html', {'title': request.user})
+    user = User.objects.get(username=request.user.username)
+    student_avatar = Student.objects.filter(user=user)
+    if student_avatar:
+        logger.info('found student avatar for this profile')
+    supervisor_avatar = Supervisor.objects.filter(user=user)
+    if supervisor_avatar:
+        logger.info('found supervisor avatar for this profile')
+    teacher_avatar = Teacher.objects.filter(user=user)
+    if teacher_avatar:
+        logger.info('found teacher avatar for this profile')
+    return render(request, 'users/profile.html', {
+        'title': request.user,
+        'student_avatar': student_avatar.first() if student_avatar else None,
+        'supervisor_avatar': supervisor_avatar.first() if supervisor_avatar else None,
+        'teacher_avatar': teacher_avatar.first() if teacher_avatar else None
+    })

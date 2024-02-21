@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser
+from django.contrib.auth.models import User
 
 
 class Department(models.Model):
@@ -28,7 +28,8 @@ class Course(models.Model):
         return f'{self.code} credit: {self.credit}'
 
 
-class Teacher(AbstractBaseUser):
+class Teacher(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     id = models.BigAutoField(primary_key=True)
     username = models.CharField(max_length=100)
     email = models.CharField(max_length=100)
@@ -44,7 +45,8 @@ class Teacher(AbstractBaseUser):
         return f'{self.username} dept. {self.department}'
 
 
-class Supervisor(AbstractBaseUser):
+class Supervisor(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     id = models.BigAutoField(primary_key=True)
     username = models.CharField(max_length=100)
     email = models.CharField(max_length=100)
@@ -57,7 +59,8 @@ class Supervisor(AbstractBaseUser):
         return f'{self.username} dept. {self.department}'
 
 
-class Student(AbstractBaseUser):
+class Student(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     registration = models.BigIntegerField(primary_key=True)
     username = models.CharField(max_length=100)
     email = models.CharField(max_length=100)
@@ -65,4 +68,4 @@ class Student(AbstractBaseUser):
     USERNAME_FIELD = 'email'
 
     def __str__(self):
-        return f'name: {self.username} dept: {self.registration} reg: {self.registration}'
+        return f'name: {self.username} dept: {self.department} reg: {self.registration}'

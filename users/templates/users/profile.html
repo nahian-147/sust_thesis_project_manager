@@ -26,6 +26,92 @@
 		<div class="row">
 
 			<div class="col-md-12 col-sm-12">
+				{% if student_avatar %}
+					<b>Student Profile</b><br>
+					<table class="display" style="width:100%">
+						<tbody>
+							<tr>
+								<td>Name</td>
+								<td>{{ student_avatar.username }}</td>
+							</tr>
+							<tr>
+								<td>Registration #</td>
+								<td>{{ student_avatar.registration }}</td>
+							</tr>
+							<tr>
+								<td>Email</td>
+								<td>{{ student_avatar.email }}</td>
+							</tr>
+							<tr>
+								<td>Department</td>
+								<td>{{ student_avatar.department }}</td>
+							</tr>
+						</tbody>
+					</table>
+				{% endif %}
+			</div>
+
+			<div class="col-md-12 col-sm-12">
+				{% if supervisor_avatar %}
+					<b>Supervisor Profile</b>
+					<table class="display" style="width:100%">
+						<tbody>
+							<tr>
+								<td>Name</td>
+								<td>{{ supervisor_avatar.username }}</td>
+							</tr>
+							<tr>
+								<td>Expertise</td>
+								<td>{{ supervisor_avatar.expertise }}</td>
+							</tr>
+							<tr>
+								<td>Email</td>
+								<td>{{ supervisor_avatar.email }}</td>
+							</tr>
+							<tr>
+								<td>Department</td>
+								<td>{{ supervisor_avatar.department }}</td>
+							</tr>
+							<tr>
+								<td>Publications</td>
+								<td>{{ teacher_avatar.publications }}</td>
+							</tr>
+						</tbody>
+					</table>
+				{% endif %}
+			</div>
+
+			<div class="col-md-12 col-sm-12">
+				{% if teacher_avatar %}
+					<b>Teacher Profile</b>
+					<table class="display" style="width:100%">
+						<tbody>
+							<tr>
+								<td>Name</td>
+								<td>{{ teacher_avatar.username }}</td>
+							</tr>
+							<tr>
+								<td>Expertise</td>
+								<td>{{ teacher_avatar.expertise }}</td>
+							</tr>
+							<tr>
+								<td>Email</td>
+								<td>{{ teacher_avatar.email }}</td>
+							</tr>
+							<tr>
+								<td>Department</td>
+								<td>{{ teacher_avatar.department }}</td>
+							</tr>
+							<tr>
+								<td>Publications</td>
+								<td>{{ teacher_avatar.publications }}</td>
+							</tr>
+						</tbody>
+					</table>
+				{% endif %}
+			</div>
+
+			<div class="col-md-12 col-sm-12">
 				<b>History:</b>
                 <br>
                 <br>
