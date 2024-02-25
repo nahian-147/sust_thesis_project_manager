@@ -21,7 +21,7 @@ from .register_roles import register_user_as_a_student, register_user_as_a_teach
 logger = logging.getLogger('django')
 
 
-def register(request):
+def ui_register(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
