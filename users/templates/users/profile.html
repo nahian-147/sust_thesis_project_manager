@@ -112,24 +112,28 @@
 			</div>
 
 			<div class="col-md-12 col-sm-12">
-				<b>History:</b>
+				<b>Team Up History:</b>
                 <br>
                 <br>
 				<link rel="stylesheet" type="text/css" href="{% static  'css/jquery.dataTables.min.css' %}">
 				<table id="all_history_table" class="display" style="width:100%">
 				<thead>
 					<tr>
-						<th scope="col">Time</th>
-						<th scope="col">Operation</th>
-						<th scope="col">Sequence</th>
+						<th scope="col">Team Name</th>
+						<th scope="col">Project/Thesis Title</th>
+						<th scope="col">course</th>
+						<th scope="col">Year</th>
+						<th scope="col">Status</th>
 					</tr>
 				</thead>
 				<tbody>
-					{% for history in work_history %}
+					{% for team in teams %}
 					<tr>
-						<td>{{ history.time }}</td>
-						<td><b>{{ history.action }}</b></td>
-						<td class="sequence">{{ history.sequence }}</td>
+						<td>{{ team.name }}</td>
+						<td><b>{{ team.project_thesis_title }}</b></td>
+						<td>{{ team.course }}</td>
+						<td>{{ team.year }}</td>
+						<td>{{ team.status }}</td>
 					</tr>
 					{% endfor %}
 				</tbody>

@@ -1,5 +1,5 @@
 from django.db import models
-from users.models import Course, Teacher
+from users.models import Course, Teacher, Supervisor, Student
 
 
 class Team(models.Model):
@@ -19,6 +19,21 @@ class Team(models.Model):
 
     def __str__(self):
         return f'team: {self.name} of year: {self.year}'
+
+
+class TeamStudentMap(models.Model):
+    team = models.ForeignKey(Team, on_delete=models.CASCADE)
+    student = models.ForeignKey(Student, on_delete=models.CASCADE)
+
+
+class TeamSupervisorMap(models.Model):
+    team = models.ForeignKey(Team, on_delete=models.CASCADE)
+    supervisor = models.ForeignKey(Supervisor, on_delete=models.CASCADE)
+
+
+class TeamTeacherMap(models.Model):
+    team = models.ForeignKey(Team, on_delete=models.CASCADE)
+    teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE)
 
 
 class TeamProgress(models.Model):
@@ -42,7 +57,7 @@ class Arrangement(models.Model):
         unique_together = ('course', 'year', 'odd_semester')
 
 
-class Participation(models.Model):
+class TeamParticipation(models.Model):
     id = models.BigAutoField(primary_key=True)
     arrangement = models.ForeignKey(Arrangement, on_delete=models.CASCADE)
     team = models.ForeignKey(Team, on_delete=models.CASCADE)

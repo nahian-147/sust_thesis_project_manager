@@ -28,44 +28,28 @@ class Course(models.Model):
         return f'{self.code} credit: {self.credit}'
 
 
-class Teacher(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+class Participant(models.Model):
     id = models.BigAutoField(primary_key=True)
-    username = models.CharField(max_length=100)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    full_name = models.CharField(max_length=100)
     email = models.CharField(max_length=100)
     department = models.ForeignKey(Department, on_delete=models.CASCADE)
-    expertise = models.CharField(max_length=100)
-    publications = models.JSONField(max_length=1500)
-    USERNAME_FIELD = 'email'
 
     class Meta:
-        unique_together = ('username', 'department')
+        unique_together = ('full_name', 'department', 'email')
 
     def __str__(self):
-        return f'{self.username} dept. {self.department}'
+        return f'{self.full_name} dept. {self.department}'
 
 
-class Supervisor(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    id = models.BigAutoField(primary_key=True)
-    username = models.CharField(max_length=100)
-    email = models.CharField(max_length=100)
-    department = models.ForeignKey(Department, on_delete=models.CASCADE, null=True)
+class Teacher(Participant):
     expertise = models.CharField(max_length=100)
     publications = models.JSONField(max_length=1500)
-    USERNAME_FIELD = 'email'
-
-    def __str__(self):
-        return f'{self.username} dept. {self.department}'
 
 
-class Student(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+class Supervisor(Teacher):
+    pass
+
+
+class Student(Participant):
     registration = models.BigIntegerField(primary_key=True)
-    username = models.CharField(max_length=100)
-    email = models.CharField(max_length=100)
-    department = models.ForeignKey(Department, on_delete=models.CASCADE)
-    USERNAME_FIELD = 'email'
-
-    def __str__(self):
-        return f'name: {self.username} dept: {self.department} reg: {self.registration}'
