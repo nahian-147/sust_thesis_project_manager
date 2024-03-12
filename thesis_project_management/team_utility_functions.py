@@ -1,6 +1,9 @@
+from django.core.exceptions import ObjectDoesNotExist
+
 from users.models import Participant
 from .models import *
 import logging
+from datetime import datetime
 
 logger = logging.getLogger('django')
 
@@ -38,17 +41,26 @@ def get_all_teams_of_a_participant(participant: Participant) -> list[Team]:
     return teams
 
 
-def add_participant_to_team(team: Team, participant: Participant):
+def add_participant_to_team(team: Team, participant: Participant) -> bool:
     if type(participant) is Student:
-        team_student_map = TeamStudentMap()
-        team_student_map.team = team
-        team_student_map.student = participant
-        if 'students' in team.students:
-            team.students['students'].append(participant.email)
+        all_related_teams = get_all_teams_of_a_participant(participant)
+        if team.students is None:
+            team.students = {
+                "students": []
+            }
+        if not all_related_teams or not any(
+                [team.year == _.year and team.course == _.course for _ in all_related_teams]):
+            team_student_map = TeamStudentMap()
+            team_student_map.team = team
+            team_student_map.student = participant
+            if team.students is not None and 'students' in team.students:
+                team.students['students'].append(participant.registration)
+            else:
+                team.students['students'] = [participant.registration]
+            team.save()
+            team_student_map.save()
         else:
-            team.students['students'] = [participant.email]
-        team.save()
-        team_student_map.save()
+            return False
     elif type(participant) is Supervisor:
         team_supervisor_map = TeamSupervisorMap()
         team_supervisor_map.team = team
@@ -69,3 +81,24 @@ def add_participant_to_team(team: Team, participant: Participant):
             team.students['teachers'] = [participant.email]
         team.save()
         team_teacher_map.save()
+    return True
+
+
+def create_team_from_dict(team_info: dict):
+    year = team_info['year'] if 'year' in team_info else datetime.now().date().year
+    course = Course.objects.get(code=team_info['course'])
+    try:
+        team = Team.objects.get(name=team_info['name'], year=year, course=course)
+    except ObjectDoesNotExist:
+        team = Team()
+    team.name = team_info['name']
+    team.year = year
+    team.project_thesis_title = team_info['project_thesis_title']
+    team.course = course
+    student_list = map(lambda r: Student.objects.get(registration=r['registration']), team_info['student_list'])
+    team.save()
+    return all([add_participant_to_team(team, student) for student in student_list])
+
+
+def get_arrangement_list_for_team(team: Team) -> list[Arrangement]:
+    return list(filter(lambda a: a.end_date > datetime.now().date() and a.active, Arrangement.objects.filter(course=team.course, year=team.year)))

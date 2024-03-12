@@ -39,7 +39,7 @@ class Participant(models.Model):
         unique_together = ('full_name', 'department', 'email')
 
     def __str__(self):
-        return f'{self.full_name} dept. {self.department}'
+        return f'{self.full_name} dept. {self.department.name}'
 
 
 class Teacher(Participant):

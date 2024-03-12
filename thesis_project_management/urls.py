@@ -1,7 +1,8 @@
 from django.urls import path
-from .views import home
+from .views import home, create_team, get_arrangements
 
 urlpatterns = [
-    path("api/v0/foo", home, name='foo'),
-    path('home/', home, name='home')
+    path('home/', home, name='home'),
+    path('api/create-team/', create_team, name='create_team'),
+    path('api/get-arrangements/', get_arrangements, name='get_arrangements'),
 ]

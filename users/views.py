@@ -7,7 +7,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from rest_framework import generics
-from rest_framework.authentication import TokenAuthentication
+from rest_framework.authentication import TokenAuthentication, SessionAuthentication
 from rest_framework.decorators import api_view, permission_classes, authentication_classes
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
@@ -118,7 +118,7 @@ def api_user_profile(request):
 
 
 @api_view(['POST'])
-@authentication_classes([TokenAuthentication])
+@authentication_classes([TokenAuthentication, SessionAuthentication])
 @permission_classes([IsAuthenticated])
 def register_role(request):
     user = User.objects.get(username=request.user.username)
