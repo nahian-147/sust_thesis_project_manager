@@ -6,8 +6,8 @@ from django.core.exceptions import ObjectDoesNotExist
 
 def bootstrap_a_participant(user: User, participant: Participant, participant_data: dict):
     participant.user = user
-    participant.email = user.email
-    participant.department = Department.objects.get(code=participant_data['department'])
+    participant.email = participant_data['email']
+    participant.department = Department.objects.get(code=str(participant_data['department']).upper())
     participant.full_name = participant_data['full_name']
     return participant
 
@@ -16,7 +16,11 @@ def register_user_as_a_student(user: User, student_data: dict):
     try:
         student = Student.objects.get(user=user)
     except ObjectDoesNotExist:
-        student = bootstrap_a_participant(user, Student(), student_data)
+        try:
+            duplicate_student = Student.objects.get(registration=student_data['registration'])
+            return None
+        except ObjectDoesNotExist:
+            student = bootstrap_a_participant(user, Student(), student_data)
     student.registration = student_data['registration']
     student.save()
     return student

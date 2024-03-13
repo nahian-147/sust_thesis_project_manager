@@ -66,7 +66,7 @@ class Arrangement(models.Model):
     course_teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE)
     begin_date = models.DateField(default=django.utils.timezone.now)
     end_date = models.DateField(default=datetime.datetime.fromtimestamp(django.utils.timezone.now().timestamp()+3600*24*30*8).date())
-    active = models.BooleanField()
+    active = models.BooleanField(default=True)
 
     class Meta:
         unique_together = ('course', 'year', 'odd_semester')

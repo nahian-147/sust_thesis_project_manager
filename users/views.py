@@ -1,6 +1,9 @@
 import json
 import logging
 
+from django.core.exceptions import ObjectDoesNotExist
+
+from .forms import StudentRegistrationForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
@@ -46,28 +49,74 @@ class RegisterUserAPIView(generics.CreateAPIView):
 def user_profile(request):
     user = User.objects.get(username=request.user.username)
     teams = None
+    participant_avatar = None
+    student_avatar = None
+    supervisor_avatar = None
+    teacher_avatar = None
 
-    student_avatar = Student.objects.filter(user=user)
-    if student_avatar:
+    try:
+        student_avatar = Student.objects.get(user=user)
         logger.info('found student avatar for this profile')
-        teams = get_all_teams_of_a_participant(student_avatar.first())
+        teams = get_all_teams_of_a_participant(student_avatar)
+        participant_avatar = student_avatar
+    except ObjectDoesNotExist:
+        pass
 
-    supervisor_avatar = Supervisor.objects.filter(user=user)
-    if supervisor_avatar:
+    try:
+        supervisor_avatar = Supervisor.objects.get(user=user)
         logger.info('found supervisor avatar for this profile')
-        teams = get_all_teams_of_a_participant(supervisor_avatar.first())
+        teams = get_all_teams_of_a_participant(supervisor_avatar)
+        participant_avatar = supervisor_avatar
+    except ObjectDoesNotExist:
+        pass
 
-    teacher_avatar = Teacher.objects.filter(user=user)
-    if teacher_avatar:
+    try:
+        teacher_avatar = Teacher.objects.get(user=user)
         logger.info('found teacher avatar for this profile')
-        teams = get_all_teams_of_a_participant(teacher_avatar.first())
-    return render(request, 'users/profile.html', {
-        'title': request.user,
-        'student_avatar': student_avatar.first() if student_avatar else None,
-        'supervisor_avatar': supervisor_avatar.first() if supervisor_avatar else None,
-        'teacher_avatar': teacher_avatar.first() if teacher_avatar else None,
-        'teams': teams
-    })
+        teams = get_all_teams_of_a_participant(teacher_avatar)
+        participant_avatar = teacher_avatar
+    except ObjectDoesNotExist:
+        pass
+
+    if participant_avatar is not None:
+        return render(request, 'users/profile.html', {
+            'title': request.user,
+            'student_avatar': student_avatar if student_avatar else None,
+            'supervisor_avatar': supervisor_avatar if supervisor_avatar else None,
+            'teacher_avatar': teacher_avatar if teacher_avatar else None,
+            'teams': teams
+        })
+    else:
+        return redirect('register_student')
+
+
+@login_required()
+def register_as_student(request):
+    user = User.objects.get(username=request.user.username)
+    try:
+        student = Student.objects.get(user=user)
+        return redirect('profile')
+    except ObjectDoesNotExist:
+        if request.method == 'GET':
+            form = StudentRegistrationForm()
+            return render(request, 'users/register-student.html', {'title': 'Register Student', 'form': form})
+        elif request.method == 'POST':
+            form = StudentRegistrationForm(request.POST)
+            if form.is_valid():
+                if register_user_as_a_student(user=user, student_data={
+                    'full_name': form.cleaned_data.get('full_name'),
+                    'email': form.cleaned_data.get('email'),
+                    'registration': form.cleaned_data.get('registration'),
+                    'department': form.cleaned_data.get('department')
+                }):
+                    messages.success(request, f'Student Account created for user {user.username}.')
+                    return redirect('profile')
+                else:
+                    messages.warning(request, f'Student With this Registration Exists!')
+                    return render(request, 'users/register-student.html', {'title': 'Register Student', 'form': form})
+            else:
+                messages.warning(request, f'Please check your input')
+                return render(request, 'users/register-student.html', {'title': 'Register Student', 'form': form})
 
 
 @api_view(['GET'])
@@ -143,4 +192,4 @@ def register_role(request):
         else:
             return Response(status=403, data={"message": "Teacher Info missing!"})
     else:
-        return Response(status=403, data={"message": "You Naughty Punk !!!"})
+        return Response(status=403, data={"message": "Invalid role_id"})

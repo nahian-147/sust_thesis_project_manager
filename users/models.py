@@ -52,4 +52,4 @@ class Supervisor(Teacher):
 
 
 class Student(Participant):
-    registration = models.BigIntegerField(primary_key=True)
+    registration = models.CharField(primary_key=True, max_length=12)

@@ -15,4 +15,5 @@ urlpatterns = [
     path('profile/', user_views.user_profile, name='profile'),
     path('api/profile/', user_views.api_user_profile, name='api_profile'),
     path('api/register-role/', user_views.register_role, name='register_role'),
+    path('register-student/', user_views.register_as_student, name='register_student'),
 ]

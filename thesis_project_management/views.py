@@ -1,12 +1,14 @@
 import json
 
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.shortcuts import render
-from rest_framework.authentication import TokenAuthentication
+from rest_framework.authentication import TokenAuthentication, SessionAuthentication
 from rest_framework.decorators import api_view, permission_classes, authentication_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
+from .forms import TeamCreationForm
 from .models import Team
 from .serializers import ArrangementSerializer
 from .team_utility_functions import create_team_from_dict, get_arrangement_list_for_team
@@ -16,8 +18,17 @@ def home(request):
     return render(request, 'thesis_project_management/home.html', {'title': 'Home'})
 
 
+@login_required()
+def create_team_ui(request):
+    if request.method == 'GET':
+        form = TeamCreationForm()
+        return render(request, 'thesis_project_management/create-team.html', {'title': 'Create Team', 'form': form})
+    elif request.method == 'POST':
+        form = TeamCreationForm(request.POST)
+
+
 @api_view(['POST'])
-@authentication_classes([TokenAuthentication])
+@authentication_classes([TokenAuthentication, SessionAuthentication])
 @permission_classes([IsAuthenticated])
 def create_team(request):
     user = User.objects.get(username=request.user.username)
@@ -50,7 +61,7 @@ def create_team(request):
 
 
 @api_view(['POST'])
-@authentication_classes([TokenAuthentication])
+@authentication_classes([TokenAuthentication, SessionAuthentication])
 @permission_classes([IsAuthenticated])
 def get_arrangements(request):
     user = User.objects.get(username=request.user.username)
