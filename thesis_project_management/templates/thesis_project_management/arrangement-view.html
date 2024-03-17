@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<!-- <div class="content-section">
+    <p><h1>History</h1></p>
+    <div class="border-top pt-3">
+        <ol>
+            {% for history in work_history %}
+            <li>
+                <i>{{ history.time }}</i>
+                <br>
+                Operation : <b>{{ history.action }}</b>
+                <br>
+                Sequence : {{ history.sequence }}
+                <br>
+            </li>
+            <br>
+            {% endfor %}
+        </ol>
+    </div>
+</div> -->
+
+<section id="profile">
+    <div class="content-section">
+		<br>
+		<h4><b>Participating Teams</b></h4>
+		<br>
+		<br>
+		<div class="row">
+			<div class="col-md-12 col-sm-12">
+				<b>Active Now:</b>
+                <br>
+                <br>
+				<link rel="stylesheet" type="text/css" href="{% static  'css/jquery.dataTables.min.css' %}">
+				<table id="participating_teams" class="display" style="width:100%">
+				<thead>
+					<tr>
+						<th scope="col">Team Name</th>
+						<th scope="col">Project/Thesis Title</th>
+						<th scope="col">course</th>
+						<th scope="col">Year</th>
+						<th scope="col">Status</th>
+						<th scope="col">Supervisors</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for team in participated_teams %}
+					<tr>
+						<td>{{ team.name }}</td>
+						<td><b><a href="/thesis-project-manager/team-detail/?id={{ team.id }}">{{ team.project_thesis_title }}</a></b></td>
+						<td>{{ team.course }}</td>
+						<td>{{ team.year }}</td>
+						<td>{{ team.status }}</td>
+						{% if course_teacher %}
+							<td><a href="/thesis-project-manager/assign-supervisor/?id={{ team.id }}">{{ team.assigned_supervisors }}</a></td>
+						{% else %}
+							<td><a href="/thesis-project-manager/assign-supervisor/?id={{ team.id }}">{{ team.assigned_supervisors }}</a></td>
+						{% endif %}
+					</tr>
+					{% endfor %}
+				</tbody>
+				</table>
+			</div>
+		</div>
+		<br>
+		<br>
+		</div>
+</section>
+
+<script src="{% static 'scripts/jquery-3.5.1.js' %}"></script>
+<script src="{% static 'scripts/jquery.dataTables.min.js' %}"></script>
+<script>
+    $(document).ready(function () {
+        $('#participating_teams').DataTable();
+    });
+</script>
+
+{% endblock content%}

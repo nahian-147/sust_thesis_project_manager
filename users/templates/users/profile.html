@@ -130,7 +130,7 @@
 					{% for team in teams %}
 					<tr>
 						<td>{{ team.name }}</td>
-						<td><b>{{ team.project_thesis_title }}</b></td>
+						<td><b><a href="/thesis-project-manager/team-detail/?id={{ team.id }}">{{ team.project_thesis_title }}</a></b></td>
 						<td>{{ team.course }}</td>
 						<td>{{ team.year }}</td>
 						<td>{{ team.status }}</td>

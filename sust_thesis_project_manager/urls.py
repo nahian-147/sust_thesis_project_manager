@@ -3,9 +3,11 @@ from django.urls import path, include
 from users import views as user_views
 from django.contrib.auth import views as auth_views
 from rest_framework.authtoken import views
+from thesis_project_management.views import home
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("", home, name="home"),
     path("thesis-project-manager/", include('thesis_project_management.urls')),
     path('register/', user_views.ui_register, name='register'),
     path('api/register/', user_views.RegisterUserAPIView.as_view()),

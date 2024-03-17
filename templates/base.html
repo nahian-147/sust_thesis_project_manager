@@ -142,80 +142,80 @@
 
       <table style="width:100%;">
         <tr>
-<!--          <td style="vertical-align: top;">-->
-<!--            <div>-->
-<!--              {% if user.is_authenticated %}-->
-<!--              <div class="flex-shrink-0 p-3 bg-white" style="width: 280px;">-->
-<!--                <ul class="list-unstyled ps-0">-->
-<!--                  <li class="mb-1">-->
-<!--                    <button-->
-<!--                      class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"-->
-<!--                      data-bs-toggle="collapse" data-bs-target="#home-collapse"-->
-<!--                      aria-expanded="false">-->
-<!--                      Genome Manipulation-->
-<!--                    </button>-->
-<!--                    <div class="collapse" id="home-collapse">-->
-<!--&lt;!&ndash;                      <ul&ndash;&gt;-->
-<!--&lt;!&ndash;                        class="btn-toggle-nav list-unstyled fw-normal pb-1 small">&ndash;&gt;-->
-<!--&lt;!&ndash;                        <li><a href="/genome_manipulation/transcription/"&ndash;&gt;-->
-<!--&lt;!&ndash;                            class="link-dark d-inline-flex text-decoration-none rounded">Transcription</a></li>&ndash;&gt;-->
-<!--&lt;!&ndash;                        <li><a href="/genome_manipulation/reverse_complement"&ndash;&gt;-->
-<!--&lt;!&ndash;                            class="link-dark d-inline-flex text-decoration-none rounded">Reverse&ndash;&gt;-->
-<!--&lt;!&ndash;                            Complement</a></li>&ndash;&gt;-->
-<!--&lt;!&ndash;                        <li><a href="/genome_manipulation/protein_synthesis"&ndash;&gt;-->
-<!--&lt;!&ndash;                            class="link-dark d-inline-flex text-decoration-none rounded">Protein&ndash;&gt;-->
-<!--&lt;!&ndash;                            Synthesis</a></li>&ndash;&gt;-->
-<!--&lt;!&ndash;                      </ul>&ndash;&gt;-->
-<!--                    </div>-->
-<!--                  </li>-->
-<!--                  <li class="mb-1">-->
-<!--&lt;!&ndash;                    <button&ndash;&gt;-->
-<!--&lt;!&ndash;                      class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"&ndash;&gt;-->
-<!--&lt;!&ndash;                      data-bs-toggle="collapse"&ndash;&gt;-->
-<!--&lt;!&ndash;                      data-bs-target="#dashboard-collapse" aria-expanded="false">&ndash;&gt;-->
-<!--&lt;!&ndash;                      Gene Prediction&ndash;&gt;-->
-<!--&lt;!&ndash;                    </button>&ndash;&gt;-->
-<!--                    <div class="collapse" id="dashboard-collapse">-->
-<!--&lt;!&ndash;                      <ul&ndash;&gt;-->
-<!--&lt;!&ndash;                        class="btn-toggle-nav list-unstyled fw-normal pb-1 small">&ndash;&gt;-->
-<!--&lt;!&ndash;                        <li><a href="/gene_prediction/"&ndash;&gt;-->
-<!--&lt;!&ndash;                            class="link-dark d-inline-flex text-decoration-none rounded">Gene&ndash;&gt;-->
-<!--&lt;!&ndash;                            Prediction</a>&ndash;&gt;-->
-<!--&lt;!&ndash;                        </li>&ndash;&gt;-->
-<!--&lt;!&ndash;                      </ul>&ndash;&gt;-->
-<!--                    </div>-->
-<!--                  </li>-->
-<!--                  &lt;!&ndash; <li class="mb-1">-->
+          <td style="vertical-align: top;">
+            <div>
+              {% if user.is_authenticated %}
+              <div class="flex-shrink-0 p-3 bg-white" style="width: 280px;">
+                <ul class="list-unstyled ps-0">
+                  <li class="mb-1">
+                    <button
+                      class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
+                      data-bs-toggle="collapse" data-bs-target="#home-collapse"
+                      aria-expanded="false">
+                      Teams
+                    </button>
+                    <div class="collapse" id="home-collapse">
+                      <ul
+                        class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                        <li><a href="/thesis-project-manager/create-team/"
+                            class="link-dark d-inline-flex text-decoration-none rounded">Create</a></li>
+<!--                        <li><a href="/genome_manipulation/reverse_complement"-->
+<!--                            class="link-dark d-inline-flex text-decoration-none rounded">Reverse-->
+<!--                            Complement</a></li>-->
+<!--                        <li><a href="/genome_manipulation/protein_synthesis"-->
+<!--                            class="link-dark d-inline-flex text-decoration-none rounded">Protein-->
+<!--                            Synthesis</a></li>-->
+                      </ul>
+                    </div>
+                  </li>
+                  <li class="mb-1">
 <!--                    <button-->
 <!--                      class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"-->
 <!--                      data-bs-toggle="collapse"-->
-<!--                      data-bs-target="#orders-collapse" aria-expanded="false">-->
-<!--                      Gene Clustering-->
+<!--                      data-bs-target="#dashboard-collapse" aria-expanded="false">-->
+<!--                      Gene Prediction-->
 <!--                    </button>-->
-<!--                    <div class="collapse" id="orders-collapse">-->
-<!--                    </div>-->
-<!--                  </li> &ndash;&gt;-->
-<!--                  <li class="mb-1">-->
-<!--                    <button-->
-<!--                      class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"-->
-<!--                      data-bs-toggle="collapse"-->
-<!--                      data-bs-target="#account-collapse" aria-expanded="false">-->
-<!--                      Phylogenetic Tree-->
-<!--                    </button>-->
-<!--                    <div class="collapse" id="account-collapse">-->
-<!--&lt;!&ndash;                      <ul&ndash;&gt;-->
-<!--&lt;!&ndash;                        class="btn-toggle-nav list-unstyled fw-normal pb-1 small">&ndash;&gt;-->
-<!--&lt;!&ndash;                        <li><a href="/phylogenetic_tree/showPhylogeneticTree"&ndash;&gt;-->
-<!--&lt;!&ndash;                            class="link-dark d-inline-flex text-decoration-none rounded">PhylogeneticTree</a>&ndash;&gt;-->
-<!--&lt;!&ndash;                        </li>&ndash;&gt;-->
-<!--&lt;!&ndash;                      </ul>&ndash;&gt;-->
-<!--                    </div>-->
-<!--                  </li>-->
-<!--                </ul>-->
-<!--              </div>-->
-<!--              {% endif %}-->
-<!--            </div>-->
-<!--          </td>-->
+                    <div class="collapse" id="dashboard-collapse">
+<!--                      <ul-->
+<!--                        class="btn-toggle-nav list-unstyled fw-normal pb-1 small">-->
+<!--                        <li><a href="/gene_prediction/"-->
+<!--                            class="link-dark d-inline-flex text-decoration-none rounded">Gene-->
+<!--                            Prediction</a>-->
+<!--                        </li>-->
+<!--                      </ul>-->
+                    </div>
+                  </li>
+                  <!-- <li class="mb-1">
+                    <button
+                      class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
+                      data-bs-toggle="collapse"
+                      data-bs-target="#orders-collapse" aria-expanded="false">
+                      Gene Clustering
+                    </button>
+                    <div class="collapse" id="orders-collapse">
+                    </div>
+                  </li> -->
+                  <li class="mb-1">
+                    <button
+                      class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
+                      data-bs-toggle="collapse"
+                      data-bs-target="#account-collapse" aria-expanded="false">
+                      Arrangements
+                    </button>
+                    <div class="collapse" id="account-collapse">
+                      <ul
+                        class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                        <li><a href="/thesis-project-manager/arrangements/"
+                            class="link-dark d-inline-flex text-decoration-none rounded">Search</a>
+                        </li>
+                      </ul>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              {% endif %}
+            </div>
+          </td>
 
           <td>
             <div class="container">

@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<!-- <div class="content-section">
+    <p><h1>History</h1></p>
+    <div class="border-top pt-3">
+        <ol>
+            {% for history in work_history %}
+            <li>
+                <i>{{ history.time }}</i>
+                <br>
+                Operation : <b>{{ history.action }}</b>
+                <br>
+                Sequence : {{ history.sequence }}
+                <br>
+            </li>
+            <br>
+            {% endfor %}
+        </ol>
+    </div>
+</div> -->
+
+<section id="profile">
+    <div class="content-section">
+		<br>
+		<h4><b>All Arrangements</b></h4>
+		<br>
+		<br>
+		<div class="row">
+			<div class="col-md-12 col-sm-12">
+				<b>Active Now:</b>
+                <br>
+                <br>
+				<link rel="stylesheet" type="text/css" href="{% static  'css/jquery.dataTables.min.css' %}">
+				<table id="active_arrangements" class="display" style="width:100%">
+				<thead>
+					<tr>
+						<th scope="col">Course</th>
+						<th scope="col">year</th>
+						<th scope="col">Odd-Semester</th>
+						<th scope="col">Course Teacher</th>
+						<th scope="col">Starts From</th>
+						<th scope="col">Ends On</th>
+						{% if student %}
+							<th scope="col">Participate</th>
+						{% endif %}
+					</tr>
+				</thead>
+				<tbody>
+					{% for active_arrangement in active_arrangements %}
+					<tr>
+						<td><a href="/thesis-project-manager/view-arrangement/?id={{ active_arrangement.id }}">{{ active_arrangement.course }}</a></td>
+						<td>{{ active_arrangement.year }}</td>
+						<td>{{ active_arrangement.odd_semester }}</td>
+						<td>{{ active_arrangement.course_teacher }}</td>
+						<td>{{ active_arrangement.begin_date }}</td>
+						<td>{{ active_arrangement.end_date }}</td>
+						{% if student %}
+							<td><a href="/thesis-project-manager/participate-arrangement/?id={{ active_arrangement.id }}">Select Team</a></td>
+						{% endif %}
+					</tr>
+					{% endfor %}
+				</tbody>
+				</table>
+			</div>
+		</div>
+		<br>
+		<br>
+		<div class="row">
+			<div class="col-md-12 col-sm-12">
+				<b>Past Arrangements:</b>
+                <br>
+                <br>
+				<link rel="stylesheet" type="text/css" href="{% static  'css/jquery.dataTables.min.css' %}">
+				<table id="past_arrangements" class="display" style="width:100%">
+				<thead>
+					<tr>
+						<th scope="col">Course</th>
+						<th scope="col">year</th>
+						<th scope="col">Odd-Semester</th>
+						<th scope="col">Course Teacher</th>
+						<th scope="col">Starts From</th>
+						<th scope="col">Ends On</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for past_arrangement in past_arrangements %}
+					<tr>
+						<td>{{ past_arrangement.course }}</td>
+<!--						<td><b><a href="/thesis-project-manager/team-detail/?id={{ team.id }}">{{ team.project_thesis_title }}</a></b></td>-->
+						<td>{{ past_arrangement.year }}</td>
+						<td>{{ past_arrangement.odd_semester }}</td>
+						<td>{{ past_arrangement.course_teacher }}</td>
+						<td>{{ past_arrangement.begin_date }}</td>
+						<td>{{ past_arrangement.end_date }}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+				</table>
+			</div>
+		</div>
+		</div>
+</section>
+
+<script src="{% static 'scripts/jquery-3.5.1.js' %}"></script>
+<script src="{% static 'scripts/jquery.dataTables.min.js' %}"></script>
+<script>
+    $(document).ready(function () {
+        $('#active_arrangements').DataTable();
+    });
+	$(document).ready(function () {
+        $('#past_arrangements').DataTable();
+    });
+</script>
+
+{% endblock content%}

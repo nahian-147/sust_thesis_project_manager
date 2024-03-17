@@ -21,7 +21,7 @@ class Team(models.Model):
         unique_together = ('name', 'year', 'course')
 
     def __str__(self):
-        return f'team: {self.name} of year: {self.year} for course {self.course}'
+        return f'{self.name} of year: {self.year} for course {self.course}'
 
 
 class TeamStudentMap(models.Model):
@@ -29,7 +29,7 @@ class TeamStudentMap(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'team: {self.team.name} for arrangement {self.student}'
+        return f'{self.team}'
 
 
 class TeamSupervisorMap(models.Model):
@@ -37,7 +37,7 @@ class TeamSupervisorMap(models.Model):
     supervisor = models.ForeignKey(Supervisor, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'team: {self.team.name} for arrangement {self.supervisor}'
+        return f'{self.team.name}-{self.supervisor}'
 
 
 class TeamTeacherMap(models.Model):
@@ -45,7 +45,7 @@ class TeamTeacherMap(models.Model):
     teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'team: {self.team.name} for arrangement {self.teacher}'
+        return f'{self.team.name}-{self.teacher}'
 
 
 class TeamProgress(models.Model):
@@ -79,9 +79,9 @@ class TeamParticipation(models.Model):
     id = models.BigAutoField(primary_key=True)
     arrangement = models.ForeignKey(Arrangement, on_delete=models.CASCADE)
     team = models.ForeignKey(Team, on_delete=models.CASCADE)
-    remarks = models.CharField(max_length=500)
-    result = models.CharField(max_length=20)
-    artifacts = models.JSONField(max_length=200)
+    remarks = models.CharField(max_length=500, null=True, blank=True)
+    result = models.CharField(max_length=20, null=True, blank=True)
+    artifacts = models.JSONField(max_length=200, null=True, blank=True)
 
     class Meta:
         unique_together = ('arrangement', 'team')
