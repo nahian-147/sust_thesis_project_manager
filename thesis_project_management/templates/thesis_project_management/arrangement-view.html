@@ -42,6 +42,9 @@
 						<th scope="col">Year</th>
 						<th scope="col">Status</th>
 						<th scope="col">Supervisors</th>
+						{% if course_teacher %}
+							<th scope="col">Give-Feedback</th>
+						{% endif %}
 					</tr>
 				</thead>
 				<tbody>
@@ -54,8 +57,9 @@
 						<td>{{ team.status }}</td>
 						{% if course_teacher %}
 							<td><a href="/thesis-project-manager/assign-supervisor/?id={{ team.id }}">{{ team.assigned_supervisors }}</a></td>
+							<td><a href="/thesis-project-manager/feedback/?id={{ team.id }}">click here</a></td>
 						{% else %}
-							<td><a href="/thesis-project-manager/assign-supervisor/?id={{ team.id }}">{{ team.assigned_supervisors }}</a></td>
+							<td>{{ team.assigned_supervisors }}</td>
 						{% endif %}
 					</tr>
 					{% endfor %}

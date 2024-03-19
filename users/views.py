@@ -48,7 +48,7 @@ class RegisterUserAPIView(generics.CreateAPIView):
 @login_required
 def user_profile(request):
     user = User.objects.get(username=request.user.username)
-    teams = None
+    teams = []
     participant_avatar = None
     student_avatar = None
     supervisor_avatar = None
@@ -65,7 +65,8 @@ def user_profile(request):
     try:
         supervisor_avatar = Supervisor.objects.get(user=user)
         logger.info('found supervisor avatar for this profile')
-        teams = get_all_teams_of_a_participant(supervisor_avatar)
+        if get_all_teams_of_a_participant(supervisor_avatar):
+            teams += get_all_teams_of_a_participant(supervisor_avatar)
         participant_avatar = supervisor_avatar
     except ObjectDoesNotExist:
         pass
@@ -73,7 +74,8 @@ def user_profile(request):
     try:
         teacher_avatar = Teacher.objects.get(user=user)
         logger.info('found teacher avatar for this profile')
-        teams = get_all_teams_of_a_participant(teacher_avatar)
+        if get_all_teams_of_a_participant(teacher_avatar):
+            teams += get_all_teams_of_a_participant(teacher_avatar)
         participant_avatar = teacher_avatar
     except ObjectDoesNotExist:
         pass

@@ -10,12 +10,14 @@ class Team(models.Model):
     name = models.CharField(max_length=100)
     year = models.IntegerField()
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
-    project_thesis_title = models.CharField(max_length=300)
+    project_thesis_title = models.CharField(max_length=300, blank=True, null=True)
+    project_thesis_proposal_1 = models.CharField(max_length=300)
+    project_thesis_proposal_2 = models.CharField(max_length=300)
+    project_thesis_proposal_3 = models.CharField(max_length=300)
     students = models.JSONField(max_length=100, default=dict)
     assigned_teachers = models.JSONField(max_length=100, default=dict)
     assigned_supervisors = models.JSONField(max_length=100, default=dict)
     status = models.CharField(max_length=50, null=True, default='UNASSIGNED')
-    all_links = models.JSONField(max_length=2500, default=dict)
 
     class Meta:
         unique_together = ('name', 'year', 'course')
@@ -52,10 +54,7 @@ class TeamProgress(models.Model):
     id = models.BigAutoField(primary_key=True)
     team = models.ForeignKey(Team, on_delete=models.CASCADE)
     last_updated = models.DateTimeField()
-    total_progress = models.FloatField()
-    meta = models.JSONField(max_length=2500)
-    milestones = models.JSONField(max_length=1500)
-    timeline = models.JSONField(max_length=500)
+    total_progress = models.FloatField(default=0.0)
 
 
 class Arrangement(models.Model):
@@ -65,7 +64,8 @@ class Arrangement(models.Model):
     odd_semester = models.BooleanField()
     course_teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE)
     begin_date = models.DateField(default=django.utils.timezone.now)
-    end_date = models.DateField(default=datetime.datetime.fromtimestamp(django.utils.timezone.now().timestamp()+3600*24*30*8).date())
+    end_date = models.DateField(
+        default=datetime.datetime.fromtimestamp(django.utils.timezone.now().timestamp() + 3600 * 24 * 30 * 8).date())
     active = models.BooleanField(default=True)
 
     class Meta:

@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import home, create_team, get_arrangements, create_team_ui, team_detail_view, show_all_arrangements, \
-    participate_arrangement, view_arrangement, assign_supervisor
+    participate_arrangement, view_arrangement, assign_supervisor, give_feedback
 
 urlpatterns = [
     path('home/', home, name='home'),
@@ -12,4 +12,5 @@ urlpatterns = [
     path('participate-arrangement/', participate_arrangement, name='participate_arrangement'),
     path('view-arrangement/', view_arrangement, name='view_arrangement'),
     path('assign-supervisor/', assign_supervisor, name='assign_supervisor'),
+    path('feedback/', give_feedback, name='give_feedback'),
 ]

@@ -24,10 +24,13 @@
 <section id="profile">
     <div class="content-section">
 		<div class="row">
+			<br>
+			<br>
 
 			<div class="col-md-12 col-sm-12">
 				{% if student_avatar %}
-					<b>Student Profile</b><br>
+					<b>Student Profile</b>
+					<br>
 					<table class="display" style="width:100%">
 						<tbody>
 							<tr>
@@ -52,38 +55,9 @@
 			</div>
 
 			<div class="col-md-12 col-sm-12">
-				{% if supervisor_avatar %}
-					<b>Supervisor Profile</b>
-					<table class="display" style="width:100%">
-						<tbody>
-							<tr>
-								<td>Name</td>
-								<td>{{ supervisor_avatar.full_name }}</td>
-							</tr>
-							<tr>
-								<td>Expertise</td>
-								<td>{{ supervisor_avatar.expertise }}</td>
-							</tr>
-							<tr>
-								<td>Email</td>
-								<td>{{ supervisor_avatar.email }}</td>
-							</tr>
-							<tr>
-								<td>Department</td>
-								<td>{{ supervisor_avatar.department }}</td>
-							</tr>
-							<tr>
-								<td>Publications</td>
-								<td>{{ teacher_avatar.publications }}</td>
-							</tr>
-						</tbody>
-					</table>
-				{% endif %}
-			</div>
-
-			<div class="col-md-12 col-sm-12">
 				{% if teacher_avatar %}
 					<b>Teacher Profile</b>
+					<br>
 					<table class="display" style="width:100%">
 						<tbody>
 							<tr>
@@ -102,16 +76,16 @@
 								<td>Department</td>
 								<td>{{ teacher_avatar.department }}</td>
 							</tr>
-							<tr>
-								<td>Publications</td>
-								<td>{{ teacher_avatar.publications }}</td>
-							</tr>
 						</tbody>
 					</table>
 				{% endif %}
 			</div>
 
+
 			<div class="col-md-12 col-sm-12">
+				<br>
+				<br>
+				<br>
 				<b>Team Up History:</b>
                 <br>
                 <br>

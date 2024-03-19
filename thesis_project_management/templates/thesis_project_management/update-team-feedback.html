@@ -23,6 +23,18 @@
 								<td>{{ team.name }}</td>
 							</tr>
 							<tr>
+								<td>Course Teachers</td>
+								<td>{{ team_info_full.teachers }}</td>
+							</tr>
+							<tr>
+								<td>Supervisors</td>
+								<td>{{ team_info_full.supervisors }}</td>
+							</tr>
+							<tr>
+								<td>Students</td>
+								<td>{{ team_info_full.students }}</td>
+							</tr>
+							<tr>
 								<td>Idea 1</td>
 								<td>{{ team.project_thesis_proposal_1 }}</td>
 							</tr>
@@ -34,6 +46,30 @@
 								<td>Idea 3</td>
 								<td>{{ team.project_thesis_proposal_3 }}</td>
 							</tr>
+							<tr>
+								<td>Title</td>
+								<td><b>{{ team_info_full.title }}</b></td>
+							</tr>
+							<tr>
+								<td>Status</td>
+								<td>{{ team_info_full.status }}</td>
+							</tr>
+							<tr>
+								<td>Progress</td>
+								<td>{{ team_info_full.progress }}</td>
+							</tr>
+							<tr>
+								<td>Last-Updated</td>
+								<td>{{ team_info_full.last_updated }}</td>
+							</tr>
+							<tr>
+								<td>Result</td>
+								<td>{{ team_info_full.result }}</td>
+							</tr>
+							<tr>
+								<td>Remarks</td>
+								<td>{{ team_info_full.remarks }}</td>
+							</tr>
 						</tbody>
 					</table>
 				{% endif %}
@@ -43,11 +79,11 @@
     <form method="POST">
         {% csrf_token %}
         <fieldset class="form-group">
-            <legend class="border-bottom mb-4">Select Supervisors and Idea</legend>
+            <legend class="border-bottom mb-4">Feedback Area</legend>
             {{ form|crispy }}
         </fieldset>
         <div class="form-group">
-            <button class="btn btn-primary">Assign</button>
+            <button class="btn btn-primary">Add</button>
         </div>
     </form>
 <!--    <div class="border-top pt-3">-->

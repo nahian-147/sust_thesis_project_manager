@@ -39,12 +39,11 @@ class Participant(models.Model):
         unique_together = ('full_name', 'department', 'email')
 
     def __str__(self):
-        return f'{self.full_name} dept. {self.department.name}'
+        return f'{self.full_name}, {self.department.code} dept.'
 
 
 class Teacher(Participant):
     expertise = models.CharField(max_length=100)
-    publications = models.JSONField(max_length=1500)
 
 
 class Supervisor(Teacher):
